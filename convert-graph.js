@@ -1,9 +1,9 @@
 const fs = require('fs');
 
 console.log('Reading old graph...');
-const oldGraph = JSON.parse(
-  fs.readFileSync('/home/bihan/codes/mern/map-graph-project/kolkata-large.json', 'utf-8')
-);
+const args = process.argv.slice(2);
+if (args.length < 1) throw new Error('Enter file path');
+const oldGraph = JSON.parse(fs.readFileSync(args[0], 'utf8'));
 console.log('Finished reading old graph!');
 
 console.log('Old graph data:', oldGraph['1']);
@@ -59,5 +59,5 @@ Object.keys(newGraph).map((id) => {
 });
 
 console.log('Writing new file...');
-fs.writeFileSync('/home/bihan/codes/mern/map-graph-project/backend/src/data/kolkata-large-filter.json', JSON.stringify(newGraph));
+fs.writeFileSync('mapready.json', JSON.stringify(newGraph));
 console.log('Finished writing to new file!');

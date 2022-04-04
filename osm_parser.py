@@ -2,6 +2,7 @@ import xml.etree.ElementTree as ET
 import json
 from random import randrange
 from math import sin, cos, sqrt, atan2, radians
+import sys
 
 data = {}
 node_info = {}
@@ -87,12 +88,16 @@ def create_nodes_info(node):
 
 
 def store_json(data):
-    with open('kolkata-large.json', 'w') as f:
-        f.write(json.dumps(data))
+        print(json.dumps(data))
+    # with open('kolkata-large1.json', 'w') as f:
+        # f.write(json.dumps(data))
 
 
 def main():
-    file_path = input()
+    # file_path = input()
+    if(len(sys.argv) < 2):
+        raise Exception("Please provide the file path")
+    file_path = sys.argv[1]
     tree = ET.ElementTree(file=file_path)
     root = tree.getroot()
 

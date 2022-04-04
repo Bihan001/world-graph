@@ -6,7 +6,7 @@ interface Node {
   second: number;
 }
 
-const REGION = 'timeSquare';
+const REGION = 'timeSquareSmall';
 
 const pairToStr = (a: any, b: any) => {
   return a.toString() + '#' + b.toString();

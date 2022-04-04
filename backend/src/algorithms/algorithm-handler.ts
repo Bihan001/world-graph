@@ -11,6 +11,10 @@ import bidirectionalAStarALT from './bidirectional-a-star-alt';
 import fs from 'fs';
 
 const currentTime = new Date().toLocaleTimeString().split(' ').join('-').toLowerCase();
+if (!fs.existsSync('./logs')) {
+  fs.mkdirSync('./logs');
+}
+
 if (fs.existsSync('./logs/info.log')) {
   fs.unlinkSync('./logs/info.log');
 }
@@ -55,7 +59,6 @@ export const handleAlgorithmExec = (
 
   // Run algorithm
   const start = new Date().getTime();
-  // const { allEdges, edges } = filterAndExecAlgorithm(algorithm, [keyA, keyB], adjacencyList, revAdjacencyList, region);
   const { allEdges, edges } = filterAndExecAlgorithm(
     algorithm,
     [keyA, keyB],
@@ -115,13 +118,22 @@ const filterAndExecAlgorithm = (
   if (algorithm === 'dijkstra') return dijkstra(targetVertices, adjacencyList);
   if (algorithm === 'contractionHierarchy') {
     const { allEdges, edges } = global.contractionHierarchy.query(+closestVertices[0], +closestVertices[1]);
+    edges.push({
+      src: [adjacencyList[targetVertices[0]].lat, adjacencyList[targetVertices[0]].lon],
+      dest: [adjacencyList[closestVertices[0]].lat, adjacencyList[closestVertices[0]].lon],
+      weight: 0,
+    });
+    edges.push({
+      src: [adjacencyList[targetVertices[1]].lat, adjacencyList[targetVertices[1]].lon],
+      dest: [adjacencyList[closestVertices[1]].lat, adjacencyList[closestVertices[1]].lon],
+      weight: 0,
+    });
     return { allEdges, edges };
   }
   if (algorithm === 'bidirectionalDijkstra') return bidirectionalDijkstra(targetVertices, adjacencyList, revAdjacencyList);
   if (algorithm === 'aStar') return aStar(targetVertices, adjacencyList);
   if (algorithm === 'bidirectionalAStar') return bidirectionalAStar(targetVertices, adjacencyList, revAdjacencyList);
-  if (algorithm === 'bidirectionalAStarALT')
-    return bidirectionalAStarALT(targetVertices, adjacencyList, revAdjacencyList, region);
+  if (algorithm === 'bidirectionalAStarALT') return bidirectionalAStarALT(targetVertices, adjacencyList, revAdjacencyList, region);
   return { allEdges: [], edges: [] };
 };
 

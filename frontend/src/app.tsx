@@ -5,10 +5,11 @@ import { Viewport } from './utilities/interfaces/map';
 import Map from './components/map';
 import LocationSelect from './components/region-select';
 import AlgorithmSelect from './components/algorithm-select';
-import { Button, Checkbox, Typography } from 'antd';
+import { Button, Checkbox, Input, Typography } from 'antd';
 import ColorPicker from './components/color-picker';
 import { AlgorithmsData, Algorithm, Region, RegionsData } from './utilities/interfaces/misc';
 import './app.css';
+import { calcCrow } from './utilities/functions';
 
 const { Title } = Typography;
 
@@ -41,11 +42,9 @@ const App: React.FC = () => {
   const [traceEdgeColor, setTraceEdgeColor] = useState('#ff003399');
   const [mainEdgeColor, setMainEdgeColor] = useState('#0099ff');
 
-  const [showTraffic, setShowTraffic] = useState(false);
-  const [trafficData, _setTrafficData] = useState<Array<string>>([]);
-  const setTrafficData = useCallback((data) => _setTrafficData(data), []);
-
   const [estimatedTime, setEstimatedTime] = useState(0.0);
+
+  const [showAnimation, setShowAnimation] = useState(false);
 
   useEffect(() => {
     fetchRegionsData();
@@ -87,8 +86,6 @@ const App: React.FC = () => {
     setAllEdgeList([]);
     setTargetMarkers([]);
     setShowAlgoTrace(false);
-    setShowTraffic(false);
-    setTrafficData([]);
   }, [currentRegion]);
 
   const changeRegion = (region: Region) => {
@@ -131,17 +128,20 @@ const App: React.FC = () => {
     const speed = 1920 / 10; //check css
 
     if (showAlgoTrace) {
-      setAllEdgeList(allEdges);
-      // for (i = 1; i <= allEdges.length; i++) {
-      //   let shouldBreak = false;
-      //   ((edge: Edge) => {
-      //     const distance: number = calcCrow(edge.src[0], edge.src[1], edge.dest[0], edge.dest[1]); // km
-      //     const time = (distance / speed) * 1000;
-      //     timeToFinishAllEdges += time;
-      //     allEdgesTimeouts.push(setTimeout(() => setAllEdgeList((edges) => [...edges, edge]), i * 100 + time));
-      //   })(allEdges[i - 1]);
-      //   if (shouldBreak) break;
-      // }
+      if (!showAnimation) {
+        setAllEdgeList(allEdges);
+      } else {
+        for (i = 1; i <= allEdges.length; i++) {
+          let shouldBreak = false;
+          ((edge: Edge) => {
+            const distance: number = calcCrow(edge.src[0], edge.src[1], edge.dest[0], edge.dest[1]); // km
+            const time = (distance / speed) * 1000;
+            timeToFinishAllEdges += time;
+            allEdgesTimeouts.push(setTimeout(() => setAllEdgeList((edges) => [...edges, edge]), i * 100 + time));
+          })(allEdges[i - 1]);
+          if (shouldBreak) break;
+        }
+      }
     }
 
     timeToFinishAllEdges += i * 100 + 500;
@@ -150,30 +150,32 @@ const App: React.FC = () => {
 
     if (edges.length === 0) return console.log('No paths found');
 
-    setEdgeList(edges);
-
-    // finishAllEdgeTimeout = setTimeout(() => {
-    //   for (let i = 1; i <= edges.length; i++) {
-    //     ((edge: Edge) => {
-    //       const distance: number = calcCrow(edge.src[0], edge.src[1], edge.dest[0], edge.dest[1]); // km
-    //       const time = (distance / speed) * 1000;
-    //       edgesTimeouts.push(setTimeout(() => setEdgeList((edges) => [...edges, edge]), i * 50 + time));
-    //     })(edges[i - 1]);
-    //   }
-    // }, timeToFinishAllEdges);
+    if (!showAnimation) {
+      setEdgeList(edges);
+    } else {
+      finishAllEdgeTimeout = setTimeout(() => {
+        for (let i = 1; i <= edges.length; i++) {
+          ((edge: Edge) => {
+            const distance: number = calcCrow(edge.src[0], edge.src[1], edge.dest[0], edge.dest[1]); // km
+            const time = (distance / speed) * 1000;
+            edgesTimeouts.push(setTimeout(() => setEdgeList((edges) => [...edges, edge]), i * 50 + time));
+          })(edges[i - 1]);
+        }
+      }, timeToFinishAllEdges);
+    }
   };
 
   return (
     <div className='App'>
       <div className='options-box'>
         <LocationSelect regions={regions} changeRegion={changeRegion} />
-        <Checkbox style={{ color: 'white' }} onChange={(e) => setShowTraffic(e.target.checked)}>
-          Show traffic?
-        </Checkbox>
         <AlgorithmSelect algorithms={algorithms} changeAlgorithm={changeAlgorithm} />
         <Button onClick={(e) => handleAlgoStart()}>Start visualization</Button>
         <Checkbox style={{ color: 'white' }} onChange={(e) => setShowAlgoTrace(e.target.checked)}>
           Show visualization?
+        </Checkbox>
+        <Checkbox style={{ color: 'white' }} onChange={(e) => setShowAnimation(e.target.checked)}>
+          Animate?
         </Checkbox>
         <ColorPicker color={traceEdgeColor} setColor={setTraceEdgeColor} text='Trace edge color' />
         <ColorPicker color={mainEdgeColor} setColor={setMainEdgeColor} text='Final edge color' />
@@ -188,8 +190,6 @@ const App: React.FC = () => {
           currentRegion={currentRegion}
           traceEdgeColor={traceEdgeColor}
           mainEdgeColor={mainEdgeColor}
-          trafficData={trafficData}
-          showTraffic={showTraffic}
           targetMarkers={targetMarkers}
           setTargetMarkers={setTargetMarkers}
         />

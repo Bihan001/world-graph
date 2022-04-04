@@ -7,40 +7,19 @@ import { Map as MapInterface } from '../../utilities/interfaces/map';
 // import dfs from '../../algorithms/dfs';
 import axios from 'axios';
 
-// TODO -> To be deleted later(Test import)
-// import testMarkers from '/home/bihan/codes/mern/map-graph-project/frontend/src/data/timesquare-tiny-new.json';
 
 const mapHeight = '100%';
 const backendUrl = 'http://localhost:5000/api';
 
-const changeColor = (weight: number): string => {
-  let ans = '#3bff0044';
-  if (weight > 30) ans = '#00b6ff44';
-  if (weight > 60) ans = '#ff610044';
-  if (weight > 90) ans = '#ff210044';
-  return ans;
-};
-
 const Map: React.FC<MapInterface> = (props) => {
-  const {
-    allEdgeList,
-    edgeList,
-    viewport,
-    currentRegion,
-    traceEdgeColor,
-    mainEdgeColor,
-    trafficData,
-    showTraffic,
-    targetMarkers,
-    setTargetMarkers,
-  } = props;
+  const { allEdgeList, edgeList, viewport, currentRegion, traceEdgeColor, mainEdgeColor, targetMarkers, setTargetMarkers } = props;
 
   const mapRef = useRef<MapClass | null>(null);
 
   const [landmarks, setLandmarks] = useState<{ id: string; lat: number; lon: number }[]>([]);
 
   useEffect(() => {
-    fetchLandmarks();
+    // fetchLandmarks();
     if (!currentRegion) return;
     const centerLat = currentRegion.boundary[3] + (currentRegion.boundary[1] - currentRegion.boundary[3]) / 2;
     const centerLon = currentRegion.boundary[2] + (currentRegion.boundary[0] - currentRegion.boundary[2]) / 2;
@@ -187,7 +166,7 @@ const Map: React.FC<MapInterface> = (props) => {
           [currentRegion.boundary[1], currentRegion.boundary[0]],
           [currentRegion.boundary[3], currentRegion.boundary[2]],
         ]}
-        pathOptions={{ color: '#000000dd' }}
+        pathOptions={{ color: '#00000066' }}
       />
       {/* {markers} */}
       {/* {displayTestMarkers} */}
@@ -195,7 +174,6 @@ const Map: React.FC<MapInterface> = (props) => {
       {displayLandmarks}
       {<AllEdgeList allEdgeList={allEdgeList} traceEdgeColor={traceEdgeColor} />}
       {<MainEdgeList mainEdgeList={edgeList} mainEdgeColor={mainEdgeColor} />}
-      {showTraffic && <Traffic trafficData={trafficData} />}
     </MapContainer>
   );
 };
@@ -236,24 +214,4 @@ const MainEdgeList = memo((props: any) => {
       </Popup>
     </Polyline>
   ));
-});
-
-const Traffic = memo((props: any) => {
-  const { trafficData } = props;
-  return trafficData.map((edgeStr: string, idx: number) => {
-    const [srcKey, destKey, weight] = edgeStr.split('$');
-    const [srcLat, srcLon] = srcKey.split('#');
-    const [destLat, destLon] = destKey.split('#');
-    return (
-      <Polyline
-        key={idx}
-        weight={6}
-        positions={[
-          [+srcLat, +srcLon],
-          [+destLat, +destLon],
-        ]}
-        color={changeColor(+weight)}
-      ></Polyline>
-    );
-  });
 });
