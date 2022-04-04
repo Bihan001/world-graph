@@ -2,11 +2,10 @@ import React, { useEffect, useState, useRef, memo } from 'react';
 import { LatLngExpression, LeafletMouseEvent, Map as MapClass } from 'leaflet';
 import { MapContainer, Marker, Polyline, Popup, Rectangle, TileLayer, LayersControl, ZoomControl } from 'react-leaflet';
 import ReactLeafletGoogleLayer from 'react-leaflet-google-layer';
-import { Vertex, Edge, LatLon } from '../../utilities/interfaces/graph';
+import { Edge, LatLon } from '../../utilities/interfaces/graph';
 import { Map as MapInterface } from '../../utilities/interfaces/map';
 // import dfs from '../../algorithms/dfs';
 import axios from 'axios';
-
 
 const mapHeight = '100%';
 const backendUrl = 'http://localhost:5000/api';
@@ -32,15 +31,15 @@ const Map: React.FC<MapInterface> = (props) => {
     }, 500);
   };
 
-  const fetchLandmarks = async () => {
-    try {
-      const res = await axios.get(backendUrl + '/getLandmarks/' + currentRegion.key);
-      console.log(res.data.data.landmarks);
-      setLandmarks(res.data.data.landmarks);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  // const fetchLandmarks = async () => {
+  //   try {
+  //     const res = await axios.get(backendUrl + '/getLandmarks/' + currentRegion.key);
+  //     console.log(res.data.data.landmarks);
+  //     setLandmarks(res.data.data.landmarks);
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
 
   const deleteLandmark = async (id: string) => {
     try {

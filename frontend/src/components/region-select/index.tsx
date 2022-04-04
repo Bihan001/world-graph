@@ -5,10 +5,11 @@ const { Option } = Select;
 
 interface LocationSelectProps {
   regions: RegionsData;
+  currentRegion?: string;
   changeRegion: (region: Region) => void;
 }
 
-const LocationSelect = ({ regions, changeRegion }: LocationSelectProps) => {
+const LocationSelect = ({ regions, currentRegion, changeRegion }: LocationSelectProps) => {
   const handleChange = (value: string) => {
     changeRegion(regions[value]);
   };
@@ -16,7 +17,13 @@ const LocationSelect = ({ regions, changeRegion }: LocationSelectProps) => {
   const defaultValue = Object.keys(regions).length === 0 ? '' : Object.keys(regions)[0];
 
   return (
-    <Select className='region-select' defaultValue={defaultValue} style={{ width: 120 }} onChange={(val) => handleChange(val)}>
+    <Select
+      className='region-select'
+      value={currentRegion || defaultValue}
+      defaultValue={defaultValue}
+      style={{ width: 'fit-content' }}
+      onChange={(val) => handleChange(val)}
+    >
       <Option value='' disabled>
         Select a region
       </Option>
