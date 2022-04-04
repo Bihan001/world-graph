@@ -20,7 +20,7 @@ router.get('/getLandmarks/:region', async (req, res) => {
       return { id: lKey, lat: global.landmarks[region][lKey].lat, lon: global.landmarks[region][lKey].lon };
     });
     res.json(SuccessResponse({ landmarks }, 'Fetched landmarks successfully'));
-  } catch (err) {
+  } catch (err: any) {
     console.log(err.message);
   }
 });

@@ -13,7 +13,7 @@ app.use(express.json(), morgan('dev'), cors());
 app.use('/api', mainRoutes);
 
 if (process.env.NODE_ENV === 'production') {
-  app.use(express.static('build'));
+  app.use(express.static('./build'));
 
   const path = require('path');
   app.get('*', (req, res) => {

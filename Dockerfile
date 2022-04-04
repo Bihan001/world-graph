@@ -4,20 +4,27 @@ WORKDIR /app
 
 RUN npm install -g typescript
 
-COPY ./backend ./backend
-COPY ./frontend ./frontend
+COPY ./backend/package.json ./backend/package.json
+COPY ./frontend/package.json ./frontend/package.json
 
 WORKDIR /app/backend
 
-RUN NPM_CONFIG_PRODUCTION=false npm install && tsc -p .
+RUN NPM_CONFIG_PRODUCTION=false npm install
 
 WORKDIR /app/frontend
 
-RUN npm install && npm run build
+RUN npm install
+
+COPY ./backend /app/backend
+COPY ./frontend /app/frontend
+
+RUN npm run build
 
 RUN mv ./build /app/backend
 
 WORKDIR /app/backend
+
+RUN tsc -p .
 
 # ENV NODE_ENV=production
 # ENV PORT=5000

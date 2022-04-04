@@ -8,16 +8,12 @@ import { createLandmarks } from './data-structures/landmark-list';
 import ContractionHierarchy from './data-structures/contraction-hierarchy';
 
 declare global {
-  namespace NodeJS {
-    interface Global {
-      fullAdjacencyList: FullAdjacencyList;
-      revFullAdjacencyList: FullAdjacencyList;
-      landmarks: LandMarks;
-      initialLandmark: string;
-      landmarksCount: number;
-      contractionHierarchy: ContractionHierarchy;
-    }
-  }
+  var fullAdjacencyList: FullAdjacencyList;
+  var revFullAdjacencyList: FullAdjacencyList;
+  var landmarks: LandMarks;
+  var initialLandmark: string;
+  var landmarksCount: number;
+  var contractionHierarchy: ContractionHierarchy;
 }
 
 fetchAllRegionsFromDB().then(() => {

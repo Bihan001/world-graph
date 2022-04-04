@@ -32,8 +32,8 @@ class ContractionHierarchy {
   private dp: { [key: string]: Array<[number, number]> } = {};
   private edges: Edge[] = [];
   private allEdges: Edge[] = [];
-  private pq: SortedSet<Node>[] = [];
-  private imp_pq: SortedSet<Node> = new SortedSet<Node>(
+  private pq: any[] = []; // SortedSet<Node>
+  private imp_pq: any = new SortedSet<Node>(
     [],
     (a, b) => a.second === b.second && a.first === b.first,
     (a, b) => {
@@ -42,7 +42,7 @@ class ContractionHierarchy {
       if (a.second !== b.second) return -1;
       return 0;
     }
-  );
+  ); // SortedSet<Node>
   private contracted: Array<boolean> = [];
   private imp: Array<number> = [];
   private level: Array<number> = [];
@@ -192,7 +192,7 @@ class ContractionHierarchy {
     let b = 0;
     let currDist = 0;
     let newDist = 0;
-    const D_pq: SortedSet<Node> = new SortedSet<Node>(
+    const D_pq: any = new SortedSet<Node>(
       [],
       (a, b) => a.second === b.second && a.first === b.first,
       (a, b) => {
@@ -201,7 +201,7 @@ class ContractionHierarchy {
         if (a.second !== b.second) return -1;
         return 0;
       }
-    );
+    ); // SortedSet<Node>
     const D_dist: { [key: number]: number } = {};
     D_pq.add({ first: 0, second: u });
     D_dist[u] = 0;
