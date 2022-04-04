@@ -18,8 +18,8 @@ const About: React.FC<AboutInterface> = ({ isModalVisible, handleClose }) => {
       ]}
     >
       <p>
-        <b>Map Router</b> is a routing application utilizing open data from OpenStreetMap. It allows the user to visualize the shortest path
-        between two points on a map. It's a personal project developed mainly to learn and implement graphs and various shortest path
+        <b>World Graph</b> is a routing application utilizing open data from OpenStreetMap. It allows the user to visualize the shortest
+        path between two points on a map. It's a personal project developed mainly to learn and implement graphs and various shortest path
         algorithms.
         <br /> The XML Data obtained from the OpenStreetMap API is parsed into an adjacency list which is then used to run the algorithms.
         <br />
