@@ -15,8 +15,6 @@ export interface Map {
   currentRegion: Region;
   traceEdgeColor: string;
   mainEdgeColor: string;
-  trafficData: Array<string>;
-  showTraffic: boolean;
   targetMarkers: Array<LatLon>;
   setTargetMarkers: React.Dispatch<React.SetStateAction<Array<LatLon>>>;
 }

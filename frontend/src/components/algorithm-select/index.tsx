@@ -14,7 +14,7 @@ const AlgorithmSelect = ({ algorithms, changeAlgorithm }: AlgorithmSelectProps) 
   };
 
   return (
-    <Select className='algorithm-select' defaultValue={''} style={{ width: 200 }} onChange={handleChange}>
+    <Select className='algorithm-select' defaultValue={''} style={{ width: 'fit-content' }} onChange={handleChange}>
       <Option value='' disabled>
         Select an algorithm
       </Option>

@@ -2,5 +2,4 @@
 *.env
 env.*
 /dist
-/src/data/*.json
 /logs
