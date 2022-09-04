@@ -1,0 +1,31 @@
+.turbo
+node_modules
+logs
+.pnp
+.pnp.js
+
+# Environment variables
+env.*
+*.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# testing
+coverage
+*.log
+
+# production
+build
+dist
+
+# misc
+.DS_Store
+*.xml
+*.osm
+*.boundaries.txt
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*

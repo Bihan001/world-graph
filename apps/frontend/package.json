@@ -1,0 +1,51 @@
+{
+  "name": "leaflet-algo-test",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "antd": "^4.15.2",
+    "leaflet": "^1.7.1",
+    "react": "^17.0.2",
+    "react-color": "^2.19.3",
+    "react-dom": "^17.0.2",
+    "react-leaflet": "^3.1.0",
+    "react-leaflet-google-layer": "^2.0.3",
+    "react-scripts": "4.0.3",
+    "rgb-hex": "^3.0.0"
+  },
+  "scripts": {
+    "dev": "react-app-rewired start",
+    "build": "GENERATE_SOURCEMAP=false react-app-rewired build",
+    "test": "react-app-rewired test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@types/leaflet": "^1.7.0",
+    "@types/node": "^12.20.7",
+    "@types/react": "^17.0.3",
+    "@types/react-color": "^3.0.4",
+    "@types/react-dom": "^17.0.3",
+    "@types/rgb-hex": "^3.0.0",
+    "react-app-rewire-babel-loader": "^0.1.1",
+    "react-app-rewired": "^2.2.1",
+    "typescript": "^4.2.4"
+  }
+}
