@@ -18,7 +18,7 @@ ENV NODE_ENV=production
 
 RUN npm run turbo:build
 
-COPY ./apps/frontend/build ./apps/backend/build
+RUN cp ./apps/frontend/build ./apps/backend/build
 
 # ENV PORT=5000
 # ENV MONGODB_URI=mongodb+srv://kaisen:kaisen@kaisen-test-cluster.hllyu.mongodb.net/test-db?retryWrites=true&w=majority
