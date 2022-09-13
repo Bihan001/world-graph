@@ -14,7 +14,7 @@ import About from './about';
 
 const { Title } = Typography;
 
-const backendUrl = (process.env.NODE_ENV === 'production' ? 'https://world-graph.herokuapp.com' : 'http://localhost:5000') + '/api';
+const backendUrl = (process.env.NODE_ENV === 'production' ? process.env.PROD_URL : 'http://localhost:5000') + '/api';
 
 let allEdgesTimeouts: Array<NodeJS.Timeout> = [];
 let edgesTimeouts: Array<NodeJS.Timeout> = [];

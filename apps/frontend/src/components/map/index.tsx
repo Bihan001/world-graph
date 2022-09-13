@@ -8,7 +8,7 @@ import { Map as MapInterface } from '../../utilities/interfaces/map';
 import axios from 'axios';
 
 const mapHeight = '100%';
-const backendUrl = 'http://localhost:5000/api';
+const localBackendUrl = 'http://localhost:5000/api';
 
 const Map: React.FC<MapInterface> = (props) => {
   const { allEdgeList, edgeList, viewport, currentRegion, traceEdgeColor, mainEdgeColor, targetMarkers, setTargetMarkers } = props;
@@ -33,7 +33,7 @@ const Map: React.FC<MapInterface> = (props) => {
 
   // const fetchLandmarks = async () => {
   //   try {
-  //     const res = await axios.get(backendUrl + '/getLandmarks/' + currentRegion.key);
+  //     const res = await axios.get(localBackendUrl + '/getLandmarks/' + currentRegion.key);
   //     console.log(res.data.data.landmarks);
   //     setLandmarks(res.data.data.landmarks);
   //   } catch (err) {
@@ -44,7 +44,7 @@ const Map: React.FC<MapInterface> = (props) => {
   const deleteLandmark = async (id: string) => {
     try {
       const res = await axios.post(
-        backendUrl + '/deleteLandmark',
+        localBackendUrl + '/deleteLandmark',
         { id, region: currentRegion.key },
         {
           headers: {
