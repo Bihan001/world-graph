@@ -16,7 +16,7 @@ COPY ./turbo.json /app/turbo.json
 
 ENV NODE_ENV=production
 
-RUN npx turbo run build
+RUN npm run turbo:build
 
 COPY ./apps/frontend/build ./apps/backend/build
 
@@ -25,4 +25,4 @@ COPY ./apps/frontend/build ./apps/backend/build
 # ENV FIREBASE_URI=https://mern-authentication-6634c.firebaseio.com
 # ENV SERVICE_ACCOUNT_PATH=/app/serviceAccount.json
 
-CMD [ "npx", "turbo", "run", "start" ]
+CMD [ "npm", "run", "turbo:start" ]
