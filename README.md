@@ -26,12 +26,12 @@ The algorithms are made to work with extremely large datasets. Due to hardware c
 ## Run Locally
 
 1. Clone the repository
-```bash
+```
   git clone https://github.com/Bihan001/world-graph.git
 ```
 
 2. Go to the project directory
-```bash
+```
   cd world-graph
 ```
 
@@ -45,4 +45,3 @@ docker build . -t world-graph:1.0
 ```
 docker run -d -e PORT=5000 -p 5000:5000 world-graph:1.0
 ```
-
