@@ -11,6 +11,7 @@ const About: React.FC<AboutInterface> = ({ isModalVisible, handleClose }) => {
       title='About this project'
       visible={isModalVisible}
       onOk={handleClose}
+      onCancel={handleClose}
       footer={[
         <Button key='back' onClick={handleClose}>
           Close

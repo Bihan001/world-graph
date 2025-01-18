@@ -1,8 +1,8 @@
 #!/bin/bash
 
-# Run ./generate-adj-list path_to_filename output_filename
+# Run ./generate-adj-list input_file.osm output_file_prefix
 
 osmfilter $1 --keep="highway=*" >tmp.xml
 node get-map-boundary.js tmp.xml >$2.boundaries.txt
-node create-adj-list-from-osm.js tmp.xml >$2
+node create-adj-list-from-osm.js tmp.xml >$2.json
 rm -f tmp.xml

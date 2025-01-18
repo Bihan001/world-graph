@@ -1,7 +1,7 @@
 {
-  "name": "route-finder",
+  "name": "world-graph-backend",
   "version": "1.0.0",
-  "description": "Backend of the Route Finder application",
+  "description": "Backend of the World Graph application",
   "main": "src/server.ts",
   "scripts": {
     "start": "NODE_ENV=production node dist/server.js",
@@ -13,6 +13,7 @@
   "author": "Bihan Chakraborty",
   "license": "ISC",
   "dependencies": {
+    "axios": "^1.7.9",
     "collections": "^5.1.12",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",

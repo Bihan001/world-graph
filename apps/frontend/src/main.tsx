@@ -186,7 +186,7 @@ const Main: React.FC = () => {
         <ColorPicker color={traceEdgeColor} setColor={setTraceEdgeColor} text='Trace edge color' />
         <ColorPicker color={mainEdgeColor} setColor={setMainEdgeColor} text='Final edge color' />
         <Button onClick={showModal}>About This Project</Button>
-        {showAlgoTrace && <Title level={4}>Estimated time: {estimatedTime}</Title>}
+        {showAlgoTrace && showAnimation && <Title level={4}>Estimated time: {estimatedTime}</Title>}
       </div>
       {currentRegion && (
         // <DeckTest />

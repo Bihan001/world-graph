@@ -1,9 +1,11 @@
 {
-  "name": "leaflet-algo-test",
-  "version": "0.1.0",
+  "name": "world-graph-frontend",
+  "description": "Frontend of the World Graph application",
+  "version": "1.0.0",
   "private": true,
   "dependencies": {
     "antd": "^4.15.2",
+    "axios": "^1.7.9",
     "leaflet": "^1.7.1",
     "react": "^17.0.2",
     "react-color": "^2.19.3",
